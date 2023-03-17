@@ -1,0 +1,15 @@
+<mat-card>
+    <mat-card-title>Appointments</mat-card-title>
+    <mat-card-content>
+        <mat-list>
+            <mat-list-item *ngFor="let appointment of appointments.slice().reverse()">
+                <p matListItemTitle>Title: {{ appointment.title }}</p>
+                <p matListItemLine class="secondary-text">Description: {{ appointment.description }}</p>
+                <p matListItemLine class="secondary-text">Date: {{ appointment.date | date }}</p>
+                <button mat-icon-button color="warn" (click)="onDelete(appointment?.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>

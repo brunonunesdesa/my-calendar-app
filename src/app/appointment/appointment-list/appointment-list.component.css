@@ -1,0 +1,13 @@
+mat-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+mat-list mat-list-item {
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+}
+
