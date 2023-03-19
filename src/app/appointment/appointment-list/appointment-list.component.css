@@ -1,3 +1,8 @@
+.main-container{
+    display: flex;
+    flex-direction: row;
+}
+
 mat-card {
     display: flex;
     flex-direction: column;
@@ -11,3 +16,27 @@ mat-list mat-list-item {
     width: 100%;
 }
 
+table {
+    min-width: unset;
+    flex-grow: 1;
+}
+
+.mat-column-hour {
+    width: 1em;
+    color: var(--on-surface-variant-agm);
+    font-size: 10px;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+.mat-mdc-table .mdc-data-table__row {
+    height: 40px;
+}
+
+.mdc-button__ripple{
+    background-color: rgb(3, 155, 229);
+    border-color: rgb(3, 155, 229);
+}
+
+app-calendar{
+    width: 30%;
+}

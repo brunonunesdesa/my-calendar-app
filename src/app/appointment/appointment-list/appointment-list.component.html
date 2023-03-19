@@ -1,3 +1,32 @@
+<div class="main-container">
+
+    <app-calendar  (dateChanged)="onDateChanged($event)"></app-calendar>
+
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" aria-label="calendar hours">
+        
+        <ng-container matColumnDef="hour">
+            <th mat-header-cell *matHeaderCellDef> Hour </th>
+            <td mat-cell *matCellDef="let element"> {{element.hour}} </td>
+        </ng-container>
+
+        <!-- analytical_Function Column -->
+        <ng-container matColumnDef="events" cdkDropListGroup>
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <div cdkDropList [cdkDropListData]="element.events" (cdkDropListDropped)="drop($event)">
+                    <button mat-button *ngFor="let item of element.events" color="primary"
+                        cdkDrag>{{item.title}}</button>
+                    <button mat-button [ngStyle]="{'color': 'red'}" *ngIf="element.events.length === 0"></button>
+                </div>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+</div>
+
 <mat-card>
     <mat-card-title>Appointments</mat-card-title>
     <mat-card-content>

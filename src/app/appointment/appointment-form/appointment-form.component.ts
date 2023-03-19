@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Appointment } from '../appointment.model';
 import { AppointmentService } from '../appointment.service';
 
@@ -14,6 +14,8 @@ export class AppointmentFormComponent implements OnInit {
 
   appointments: Appointment[] = [];
 
+  selected!: Date | null;
+
   constructor(private formBuilder: FormBuilder, private appointmentService: AppointmentService) { }
 
   ngOnInit(): void {
@@ -22,14 +24,6 @@ export class AppointmentFormComponent implements OnInit {
       description: [''],
       date: ['', Validators.required]
     });
-
-    this.loadAppointments();
-  }
-
-  loadAppointments(): void {
-    this.appointmentService.getAppointments().subscribe(appointments => {
-      this.appointments = appointments;
-    });
   }
 
   onSubmit(): void {
@@ -37,15 +31,14 @@ export class AppointmentFormComponent implements OnInit {
       const newAppointment: Appointment = this.appointmentForm.value;
       this.appointmentService.addAppointment(newAppointment).subscribe(() => {
         this.appointmentForm.reset();
-        this.loadAppointments();
       });
     }
   }
 
-  onDelete(id: number | undefined): void {
-    this.appointmentService.deleteAppointment(id).subscribe(() => {
-      this.loadAppointments();
-    });
+  onDateChanged(selectedDate: Date): void {
+    this.selected = selectedDate;
+    this.appointmentForm.get('date')?.setValue(this.selected)
+    console.log(this.appointmentForm.get('date')?.value)
   }
 
 }

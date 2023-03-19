@@ -26,11 +26,15 @@ import {
 
 import { AppointmentService } from './appointment.service';
 import { AppointmentListComponent } from './appointment-list/appointment-list.component';
+import { CalendarComponent } from './calendar/calendar.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
     AppointmentFormComponent,
-    AppointmentListComponent
+    AppointmentListComponent,
+    CalendarComponent
   ],
   imports: [
     CommonModule,
@@ -55,6 +59,8 @@ import { AppointmentListComponent } from './appointment-list/appointment-list.co
     MatMomentDateModule,
     FormsModule,
     ReactiveFormsModule,
+    DragDropModule,
+    MatTableModule
   ],
   providers: [AppointmentService],
 })
