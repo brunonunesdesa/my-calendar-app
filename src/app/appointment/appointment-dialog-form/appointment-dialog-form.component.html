@@ -1,0 +1,37 @@
+<mat-card-content>
+    <mat-card-title>New Appointment</mat-card-title>
+    <form [formGroup]="appointmentForm">
+
+        <mat-form-field appearance="fill">
+            <mat-label>Title *</mat-label>
+            <input matInput formControlName="title" placeholder="Title">
+            <mat-error
+                *ngIf="appointmentForm?.get('title')?.errors?.['required'] && appointmentForm?.get('title')?.touched">
+                Title is required.
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description" placeholder="Description">
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Date *</mat-label>
+            <input matInput [matDatepicker]="datePicker" formControlName="date" placeholder="Date">
+            <mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>
+            <mat-datepicker #datePicker></mat-datepicker>
+            <mat-error
+                *ngIf="appointmentForm?.get('date')?.errors?.['required'] && appointmentForm?.get('date')?.touched">
+                Date is required.
+            </mat-error>
+        </mat-form-field>
+
+        <div class="button-row" mat-dialog-action>
+            <button mat-raised-button color="primary" (click)="onSubmit()">Save</button>
+            <button mat-button (click)="onCancel()">Cancel</button>
+            <button mat-button color="warn" (click)="onDelete()"><mat-icon>delete</mat-icon></button>
+        </div>
+
+    </form>
+</mat-card-content>

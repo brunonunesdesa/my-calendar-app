@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Appointment } from '../appointment.model';
 import { AppointmentService } from '../appointment.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { MatDialog } from '@angular/material/dialog';
+import { AppointmentDialogFormComponent } from '../appointment-dialog-form/appointment-dialog-form.component';
 
 export interface CalendarHoursAppointment {
   hour: string;
@@ -9,7 +11,7 @@ export interface CalendarHoursAppointment {
 }
 
 const ELEMENT_DATA: CalendarHoursAppointment[] = [
-  { hour: '12AM', events: [] },
+  { hour: '0AM', events: [] },
   { hour: '1AM', events: [] },
   { hour: '2AM', events: [] },
   { hour: '3AM', events: [] },
@@ -47,7 +49,7 @@ export class AppointmentListComponent implements OnInit {
   displayedColumns: string[] = ['hour', 'events'];
   dataSource = ELEMENT_DATA;
 
-  selectedDate!: Date | null;
+  selectedDate: Date = new Date();
 
   drop(event: CdkDragDrop<any>) {
 
@@ -72,45 +74,15 @@ export class AppointmentListComponent implements OnInit {
 
   }
 
-  constructor(private appointmentService: AppointmentService) {
+  constructor(private appointmentService: AppointmentService, public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
-    this.loadAppointments();
+    this.loadAppointments(this.selectedDate);
   }
 
-  loadAppointments(): void {
-    this.dataSource.forEach((appointment, index) => {
-      appointment.events = []
-    });
-
-    this.appointmentService.getAppointments().subscribe(appointments => {
-      this.appointments = appointments;
-
-      this.dataSource.forEach((hour, hourIndex) => {
-
-        this.appointments.forEach((appointment, index) => {
-
-          if (new Date(appointment.date).getUTCHours() === hourIndex) {
-            hour.events.push(appointment);
-          }
-
-        });
-
-      });
-
-    });
-  }
-
-  onDelete(id: number | undefined): void {
-    this.appointmentService.deleteAppointment(id).subscribe(() => {
-      this.loadAppointments();
-    });
-  }
-
-  onDateChanged(selectedDate: Date): void {
-    this.selectedDate = selectedDate;
-    this.appointmentService.getAppointmentsByDate(this.selectedDate.toISOString().substring(0, 10)).subscribe((appointments) => {
+  loadAppointments(selectedDate: Date): void {
+    this.appointmentService.getAppointmentsByDate(selectedDate.toISOString().substring(0, 10)).subscribe((appointments) => {
       this.appointments = appointments;
 
       this.dataSource.forEach((appointment, index) => {
@@ -128,7 +100,25 @@ export class AppointmentListComponent implements OnInit {
         });
 
       });
+
     })
+  }
+
+  onDateChanged(selectedDate: Date): void {
+    this.selectedDate = selectedDate;
+    this.loadAppointments(selectedDate);
+  }
+
+  openDialog(appointment: Appointment): void {
+    const dialogRef = this.dialog.open(AppointmentDialogFormComponent, {
+      data: {
+        ...appointment
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadAppointments(this.selectedDate);
+    });
   }
 
 }

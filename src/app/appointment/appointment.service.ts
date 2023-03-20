@@ -24,7 +24,6 @@ export class AppointmentService {
   }
 
   updateAppointment(appointment: Appointment): Observable<void> {
-    console.log('aasdasd')
     const url = `${this.apiUrl}/${appointment.id}`;
     return this.http.put<void>(url, appointment);
   }

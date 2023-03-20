@@ -40,3 +40,8 @@ table {
 app-calendar{
     width: 30%;
 }
+
+.cdk-drag.mdc-button.mat-mdc-button.mat-primary.mat-mdc-button-base{
+    background: #673ab7;
+    color: #ffffff;
+}

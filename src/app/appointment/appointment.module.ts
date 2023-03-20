@@ -29,12 +29,15 @@ import { AppointmentListComponent } from './appointment-list/appointment-list.co
 import { CalendarComponent } from './calendar/calendar.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatTableModule } from '@angular/material/table';
+import { AppointmentDialogFormComponent } from './appointment-dialog-form/appointment-dialog-form.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     AppointmentFormComponent,
     AppointmentListComponent,
-    CalendarComponent
+    CalendarComponent,
+    AppointmentDialogFormComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +63,8 @@ import { MatTableModule } from '@angular/material/table';
     FormsModule,
     ReactiveFormsModule,
     DragDropModule,
-    MatTableModule
+    MatTableModule,
+    MatDialogModule
   ],
   providers: [AppointmentService],
 })

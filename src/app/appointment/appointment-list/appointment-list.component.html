@@ -1,7 +1,6 @@
 <div class="main-container">
-
     <app-calendar  (dateChanged)="onDateChanged($event)"></app-calendar>
-
+    
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" aria-label="calendar hours">
         
         <ng-container matColumnDef="hour">
@@ -11,11 +10,11 @@
 
         <!-- analytical_Function Column -->
         <ng-container matColumnDef="events" cdkDropListGroup>
-            <th mat-header-cell *matHeaderCellDef></th>
+            <th mat-header-cell *matHeaderCellDef>{{(selectedDate.getMonth()+1)+"/"+selectedDate.getDate()+"/"+selectedDate.getFullYear()}}'s appointments</th>
             <td mat-cell *matCellDef="let element">
                 <div cdkDropList [cdkDropListData]="element.events" (cdkDropListDropped)="drop($event)">
                     <button mat-button *ngFor="let item of element.events" color="primary"
-                        cdkDrag>{{item.title}}</button>
+                        cdkDrag (click)="openDialog(item)">{{item.title}}</button>
                     <button mat-button [ngStyle]="{'color': 'red'}" *ngIf="element.events.length === 0"></button>
                 </div>
             </td>
@@ -26,19 +25,3 @@
     </table>
 
 </div>
-
-<mat-card>
-    <mat-card-title>Appointments</mat-card-title>
-    <mat-card-content>
-        <mat-list>
-            <mat-list-item *ngFor="let appointment of appointments.slice().reverse()">
-                <p matListItemTitle>Title: {{ appointment.title }}</p>
-                <p matListItemLine class="secondary-text">Description: {{ appointment.description }}</p>
-                <p matListItemLine class="secondary-text">Date: {{ appointment.date | date }}</p>
-                <button mat-icon-button color="warn" (click)="onDelete(appointment?.id)">
-                    <mat-icon>delete</mat-icon>
-                </button>
-            </mat-list-item>
-        </mat-list>
-    </mat-card-content>
-</mat-card>
