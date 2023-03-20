@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Appointment } from '../appointment.model';
-import { AppointmentService } from '../appointment.service';
+import { Appointment } from '../../appointment.model';
+import { AppointmentService } from '../../appointment.service';
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { MatDialog } from '@angular/material/dialog';
 import { AppointmentDialogFormComponent } from '../appointment-dialog-form/appointment-dialog-form.component';
@@ -82,16 +82,16 @@ export class AppointmentListComponent implements OnInit {
   }
 
   loadAppointments(selectedDate: Date): void {
-    this.appointmentService.getAppointmentsByDate(selectedDate.toISOString().substring(0, 10)).subscribe((appointments) => {
+    this.appointmentService.getAppointmentsByDate(selectedDate.toISOString().substring(0, 10)).subscribe((appointments: Appointment[]) => {
       this.appointments = appointments;
 
-      this.dataSource.forEach((appointment, index) => {
+      this.dataSource.forEach((appointment) => {
         appointment.events = []
       });
 
       this.dataSource.forEach((hour, hourIndex) => {
 
-        this.appointments.forEach((appointment, index) => {
+        this.appointments.forEach((appointment) => {
 
           if (new Date(appointment.date).getUTCHours() === hourIndex) {
             hour.events.push(appointment);
@@ -109,7 +109,7 @@ export class AppointmentListComponent implements OnInit {
     this.loadAppointments(selectedDate);
   }
 
-  openDialog(appointment: Appointment | undefined, selectedDate: Date | undefined, editMode: boolean): void {
+  openDialog(appointment: Appointment | undefined, selectedDate: Date | undefined, editMode: boolean, hours: string | undefined): void {
     let dialogRef
     if (editMode) {
       dialogRef = this.dialog.open(AppointmentDialogFormComponent, {
@@ -122,7 +122,8 @@ export class AppointmentListComponent implements OnInit {
       dialogRef = this.dialog.open(AppointmentDialogFormComponent, {
         data: {
           selectedDate,
-          editMode
+          editMode,
+          hours
         }
       });
     }

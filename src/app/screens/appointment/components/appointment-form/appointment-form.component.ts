@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Appointment } from '../appointment.model';
-import { AppointmentService } from '../appointment.service';
+import { Appointment } from '../../appointment.model';
+import { AppointmentService } from '../../appointment.service';
 
 @Component({
   selector: 'app-appointment-form',

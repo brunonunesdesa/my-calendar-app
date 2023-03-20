@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { AppointmentFormComponent } from './appointment-form/appointment-form.component';
-import { AppointmentListComponent } from './appointment-list/appointment-list.component';
+import { AppointmentListComponent } from './components/appointment-list/appointment-list.component';
 
 const routes: Routes = [
-  { path: 'form', component: AppointmentFormComponent },
   { path: 'list', component: AppointmentListComponent },
 ];
 

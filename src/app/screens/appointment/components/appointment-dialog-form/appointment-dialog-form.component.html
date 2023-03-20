@@ -27,6 +27,10 @@
             </mat-error>
         </mat-form-field>
 
+        <div class="ngx-timepicker-field-example">
+            <ngx-timepicker-field [defaultTime]="selectedTime" (timeChanged)="onChangeTime($event)"></ngx-timepicker-field>
+        </div>
+
         <div class="button-row" mat-dialog-action>
             <button mat-raised-button color="primary" (click)="onSubmit()">Save</button>
             <button mat-button (click)="onCancel()">Cancel</button>
