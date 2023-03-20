@@ -51,6 +51,13 @@ export class AppointmentListComponent implements OnInit {
 
   selectedDate: Date = new Date();
 
+  constructor(private appointmentService: AppointmentService, public dialog: MatDialog) {
+  }
+
+  ngOnInit(): void {
+    this.loadAppointments(this.selectedDate);
+  }
+
   drop(event: CdkDragDrop<any>) {
 
     if (event.previousContainer === event.container) {
@@ -72,13 +79,6 @@ export class AppointmentListComponent implements OnInit {
 
     }
 
-  }
-
-  constructor(private appointmentService: AppointmentService, public dialog: MatDialog) {
-  }
-
-  ngOnInit(): void {
-    this.loadAppointments(this.selectedDate);
   }
 
   loadAppointments(selectedDate: Date): void {
@@ -109,12 +109,23 @@ export class AppointmentListComponent implements OnInit {
     this.loadAppointments(selectedDate);
   }
 
-  openDialog(appointment: Appointment): void {
-    const dialogRef = this.dialog.open(AppointmentDialogFormComponent, {
-      data: {
-        ...appointment
-      }
-    });
+  openDialog(appointment: Appointment | undefined, selectedDate: Date | undefined, editMode: boolean): void {
+    let dialogRef
+    if (editMode) {
+      dialogRef = this.dialog.open(AppointmentDialogFormComponent, {
+        data: {
+          appointment,
+          editMode
+        }
+      });
+    } else {
+      dialogRef = this.dialog.open(AppointmentDialogFormComponent, {
+        data: {
+          selectedDate,
+          editMode
+        }
+      });
+    }
 
     dialogRef.afterClosed().subscribe(result => {
       this.loadAppointments(this.selectedDate);

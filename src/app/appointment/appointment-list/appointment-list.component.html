@@ -11,10 +11,10 @@
         <!-- analytical_Function Column -->
         <ng-container matColumnDef="events" cdkDropListGroup>
             <th mat-header-cell *matHeaderCellDef>{{(selectedDate.getMonth()+1)+"/"+selectedDate.getDate()+"/"+selectedDate.getFullYear()}}'s appointments</th>
-            <td mat-cell *matCellDef="let element">
+            <td mat-cell *matCellDef="let element" (click)="openDialog(undefined, selectedDate, false)">
                 <div cdkDropList [cdkDropListData]="element.events" (cdkDropListDropped)="drop($event)">
                     <button mat-button *ngFor="let item of element.events" color="primary"
-                        cdkDrag (click)="openDialog(item)">{{item.title}}</button>
+                        cdkDrag (click)="openDialog(item, undefined, true); $event.stopPropagation()">{{item.title}}</button>
                     <button mat-button [ngStyle]="{'color': 'red'}" *ngIf="element.events.length === 0"></button>
                 </div>
             </td>

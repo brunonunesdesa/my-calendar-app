@@ -17,6 +17,10 @@ export class AppointmentDialogFormComponent {
 
   selected!: Date | null;
 
+  headerTitle: string = "New appointment";
+
+  editMode: boolean = false;
+
   constructor(
     private formBuilder: FormBuilder,
     private appointmentService: AppointmentService,
@@ -25,29 +29,52 @@ export class AppointmentDialogFormComponent {
   ) { }
 
   ngOnInit(): void {
-    this.appointmentForm = this.formBuilder.group({
-      id: ['', Validators.required],
-      title: ['', Validators.required],
-      description: [''],
-      date: ['', Validators.required]
-    });
+    if (this.data.editMode) {
+      this.appointmentForm = this.formBuilder.group({
+        id: ['', Validators.required],
+        title: ['', Validators.required],
+        description: [''],
+        date: ['', Validators.required]
+      });
 
-    if (this.data) {
       this.appointmentForm.patchValue({
-        id: this.data.id,
-        title: this.data.title,
-        description: this.data.description,
-        date: new Date(this.data.date)
+        id: this.data.appointment.id,
+        title: this.data.appointment.title,
+        description: this.data.appointment.description,
+        date: new Date(this.data.appointment.date)
+      });
+
+      this.headerTitle = "Edit appointment"
+      this.editMode = true;
+    } else {
+      this.appointmentForm = this.formBuilder.group({
+        title: ['', Validators.required],
+        description: [''],
+        date: ['', Validators.required]
+      });
+      console.log(this.data.selectedDate)
+      this.appointmentForm.patchValue({
+        date: new Date(this.data.selectedDate)
       });
     }
+
   }
 
   onSubmit() {
+    console.log(this.appointmentForm.valid)
     if (this.appointmentForm.valid) {
       const newAppointment: Appointment = this.appointmentForm.value;
-      this.appointmentService.updateAppointment(newAppointment).subscribe(() => {
-        this.dialogRef.close();
-      });
+
+      if (this.editMode) {
+        this.appointmentService.updateAppointment(newAppointment).subscribe(() => {
+          this.dialogRef.close();
+        });
+      } else {
+        this.appointmentService.addAppointment(newAppointment).subscribe(() => {
+          this.dialogRef.close();
+        });
+      }
+
     }
   }
 

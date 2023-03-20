@@ -1,5 +1,5 @@
 <mat-card-content>
-    <mat-card-title>New Appointment</mat-card-title>
+    <mat-card-title>{{headerTitle}}</mat-card-title>
     <form [formGroup]="appointmentForm">
 
         <mat-form-field appearance="fill">
@@ -30,7 +30,7 @@
         <div class="button-row" mat-dialog-action>
             <button mat-raised-button color="primary" (click)="onSubmit()">Save</button>
             <button mat-button (click)="onCancel()">Cancel</button>
-            <button mat-button color="warn" (click)="onDelete()"><mat-icon>delete</mat-icon></button>
+            <button mat-button color="warn" (click)="onDelete()" [hidden]="!editMode"><mat-icon>delete</mat-icon></button>
         </div>
 
     </form>
