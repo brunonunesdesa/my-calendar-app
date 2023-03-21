@@ -24,7 +24,7 @@ import {
 } from '@angular-material-components/datetime-picker';
 
 import { AppointmentService } from './appointment.service';
-import { AppointmentListComponent } from './components/appointment-list/appointment-list.component';
+import { AppointmentMainComponent } from './components/appointment-main/appointment-main.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatTableModule } from '@angular/material/table';
@@ -34,7 +34,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @NgModule({
   declarations: [
-    AppointmentListComponent,
+    AppointmentMainComponent,
     CalendarComponent,
     AppointmentDialogFormComponent
   ],

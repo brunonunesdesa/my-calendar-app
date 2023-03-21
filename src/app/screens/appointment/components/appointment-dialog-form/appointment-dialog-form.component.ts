@@ -81,9 +81,9 @@ export class AppointmentDialogFormComponent {
     const isPM = timeString.toLowerCase().endsWith('pm');
 
     if (hour === 12) {
-      hour = isPM ? 12 : 0; // special case for 12:00 PM (noon) and 12:00 AM (midnight)
+      hour = isPM ? 12 : 0;
     } else if (isPM) {
-      hour += 12; // convert to 24-hour format for PM times
+      hour += 12;
     }
 
     return hour.toString();

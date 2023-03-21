@@ -38,12 +38,12 @@ const ELEMENT_DATA: CalendarHoursAppointment[] = [
 ];
 
 @Component({
-  selector: 'app-appointment-list',
-  templateUrl: './appointment-list.component.html',
-  styleUrls: ['./appointment-list.component.css']
+  selector: 'app-appointment-main',
+  templateUrl: './appointment-main.component.html',
+  styleUrls: ['./appointment-main.component.css']
 })
 
-export class AppointmentListComponent implements OnInit {
+export class AppointmentMainComponent implements OnInit {
   appointments: Appointment[] = [];
 
   displayedColumns: string[] = ['hour', 'events'];
