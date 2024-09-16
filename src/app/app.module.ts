@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card'; 
+import { MatDatepickerModule } from '@angular/material/datepicker'; 
+import { MatNativeDateModule } from '@angular/material/core';  
 import { HeaderComponent } from './shared/header/header.component';
 
 @NgModule({
@@ -21,7 +24,10 @@ import { HeaderComponent } from './shared/header/header.component';
     BrowserAnimationsModule,
     CommonModule,
     MatToolbarModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule,          
+    MatDatepickerModule,    
+    MatNativeDateModule     
   ],
   providers: [],
   bootstrap: [AppComponent]

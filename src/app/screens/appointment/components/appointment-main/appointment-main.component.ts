@@ -84,24 +84,31 @@ export class AppointmentMainComponent implements OnInit {
   loadAppointments(selectedDate: Date): void {
     this.appointmentService.getAppointmentsByDate(selectedDate.toISOString().substring(0, 10)).subscribe((appointments: Appointment[]) => {
       this.appointments = appointments;
-
-      this.dataSource.forEach((appointment) => {
-        appointment.events = []
+  
+      this.dataSource.forEach((hour) => {
+        hour.events = [];
       });
-
+  
       this.dataSource.forEach((hour, hourIndex) => {
-
+  
         this.appointments.forEach((appointment) => {
-
-          if (new Date(appointment.date).getUTCHours() === hourIndex) {
+          const appointmentDate = new Date(appointment.date);
+  
+          if (this.isSameDate(appointmentDate, selectedDate) && appointmentDate.getUTCHours() === hourIndex) {
             hour.events.push(appointment);
           }
-
+  
         });
-
+  
       });
-
-    })
+  
+    });
+  }
+  
+  isSameDate(date1: Date, date2: Date): boolean {
+    return date1.getUTCFullYear() === date2.getUTCFullYear() &&
+           date1.getUTCMonth() === date2.getUTCMonth() &&
+           date1.getUTCDate() === date2.getUTCDate();
   }
 
   onDateChanged(selectedDate: Date): void {
