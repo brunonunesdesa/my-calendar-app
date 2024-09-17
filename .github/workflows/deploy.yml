@@ -25,4 +25,4 @@ jobs:
         run: npm run build --prod
 
       - name: Deploy to GitHub Pages
-        run: npx angular-cli-ghpages --dir=dist/my-calendar-app
+        run: npx angular-cli-ghpages --dir=app
