@@ -21,7 +21,7 @@ jobs:
       run: npm install
 
     - name: Build Project
-      run: npm run build -- --configuration production  # Correct build command
+      run: npm run build -- --configuration production  
 
     - name: Deploy to GitHub Pages
-      run: npx angular-cli-ghpages --dir=dist/your-project-name
+      run: npx angular-cli-ghpages --dir=dist/my-calendar-app
