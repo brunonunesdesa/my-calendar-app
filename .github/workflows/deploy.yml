@@ -1,27 +1,28 @@
-name: Deploy Angular to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - master  # or 'main', depending on your default branch
+      - main  # or the branch you want to trigger deployment from
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v3
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '16'
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18.13.0'  # Specify Node.js 18.13.0
 
-    - name: Install Dependencies
-      run: npm install
+      - name: Install dependencies
+        run: npm install
 
-    - name: Build Project
-      run: npm run build -- --configuration production  
+      - name: Build the project
+        run: npm run build --prod
 
-    - name: Deploy to GitHub Pages
-      run: npx angular-cli-ghpages --dir=dist/my-calendar-app
+      - name: Deploy to GitHub Pages
+        run: npx angular-cli-ghpages --dir=dist/my-calendar-app
