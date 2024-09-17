@@ -3,7 +3,7 @@ name: Deploy Angular to GitHub Pages
 on:
   push:
     branches:
-      - master
+      - master  # or 'main', depending on your default branch
 
 jobs:
   deploy:
@@ -21,7 +21,7 @@ jobs:
       run: npm install
 
     - name: Build Project
-      run: npm run build -- --prod
+      run: npm run build -- --configuration production  # Correct build command
 
     - name: Deploy to GitHub Pages
-      run: npx angular-cli-ghpages --dir=dist/my-calendar-app
+      run: npx angular-cli-ghpages --dir=dist/your-project-name
