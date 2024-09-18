@@ -99,10 +99,9 @@ export class AppointmentDialogFormComponent {
   }
 
   onSubmit() {
-    console.log(this.appointmentForm.valid)
     if (this.appointmentForm.valid) {
       const newAppointment: Appointment = this.appointmentForm.value;
-
+  
       if (this.editMode) {
         this.appointmentService.updateAppointment(newAppointment).subscribe(() => {
           this.dialogRef.close();
@@ -112,7 +111,6 @@ export class AppointmentDialogFormComponent {
           this.dialogRef.close();
         });
       }
-
     }
   }
 
